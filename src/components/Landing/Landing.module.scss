@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row wrap;
+  max-width: 1200px;
+  width: 90%;
+  gap: 50px;
+  margin: 50px auto;
+
+  .city {
+    background-color: var(--light);
+    border-radius: 20px;
+    padding: 5%;
+    flex: 1 1 0;
+
+    h1 {
+      font-size: var(--font-size-md);
+    }
+  }
+}
