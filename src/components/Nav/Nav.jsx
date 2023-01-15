@@ -4,8 +4,9 @@ import { FaSun } from 'react-icons/fa'
 import { RiMoonClearFill, RiSearch2Line } from 'react-icons/ri'
 import useLocalStorageState from 'use-local-storage-state'
 import { useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
-const Nav = () => {
+const Nav = ({ setData }) => {
 
   const [dark, setDark] = useLocalStorageState('dark', {
     defaultValue: true
@@ -23,12 +24,31 @@ const Nav = () => {
       (e._reactName = 'onKeyDown' && e.target.value.length && e.key === 'Enter')
     ) {
       navigate(`?search=${e.target.value}`)
+      setData(false)
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': '998aece269msh14cc2a29cde7443p1003fajsn1c673c092018',
+          'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+        }
+      };
+      fetch(`https://weatherapi-com.p.rapidapi.com/forecast.json?q=${e.target.value}&days=3`, options)
+        .then(response => response.json())
+        .then(response => {
+          setData(response)
+          console.log(response);
+        })
+        .catch(err => console.error(err));
       e.target.value = ''
     }
   }
 
   return (
-    <nav>
+    <motion.nav
+      transition={{ duration: 1, delay: 1 }}
+      initial={{ opacity: 0, y: -100, scale: 0.8 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0 }}>
       <div className={s.searchBar}>
         <input type="search" placeholder='Search a city...' onKeyDown={(e) => searchHandler(e)} />
         <RiSearch2Line size={'25px'} onClick={(e) => searchHandler(e)}></RiSearch2Line>
@@ -38,7 +58,7 @@ const Nav = () => {
         <RiMoonClearFill size={'25px'} className={`${!dark && s.onIcon}`}></RiMoonClearFill>
         <div className={`${s.switchState} ${dark && s.onState} ${'invert'}`}></div>
       </div>
-    </nav >
+    </motion.nav >
   )
 }
 
