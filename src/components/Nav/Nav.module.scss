@@ -38,6 +38,11 @@ nav {
       transform: translate(0, -50%);
       fill: var(--secondary-text);
       cursor: pointer;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        fill: var(--primary);
+      }
     }
   }
 

@@ -72,7 +72,8 @@ input {
 .dark {
   filter: invert(1);
 
-  .invert {
+  .invert,
+  img {
     filter: invert(1);
   }
 }
