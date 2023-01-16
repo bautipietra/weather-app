@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Loader from '../Loader/Loader'
 import s from './Landing.module.scss'
 import { motion } from 'framer-motion'
-import weatherImage from '../../utils/weatherImage.jsx'
 import { useSearchParams, useLocation } from 'react-router-dom'
 import Nav from '../Nav/Nav'
 import { RiErrorWarningFill } from 'react-icons/ri'
 import { MdLocationOn } from 'react-icons/md'
-import { TbTemperatureCelsius, TbGauge } from 'react-icons/tb'
+import { TbTemperatureCelsius } from 'react-icons/tb'
 import { WiCloudyGusts } from 'react-icons/wi'
 import { TiWeatherCloudy } from 'react-icons/ti'
+import { BsCloudRain } from 'react-icons/bs'
+import ReactECharts from 'echarts-for-react';
 
 const Landing = () => {
 
@@ -69,6 +70,7 @@ const Landing = () => {
     const aux = new Date(date)
     let today = aux.getDay()
     if (num) today += num
+    today++
     switch (today) {
       case 0:
         return 'Sunday'
@@ -106,6 +108,10 @@ const Landing = () => {
         return 'Monday'
         break
 
+      case 9:
+        return 'Tuesday'
+        break
+
     }
   }
 
@@ -114,6 +120,29 @@ const Landing = () => {
     const minutes = data.location.localtime.split(' ')[1].split(':')[0]
     if (Number(hours) < 13) return `${data.location.localtime.split(' ')[1]} AM`
     return `${Number(hours) % 12}:${minutes} PM`
+  }
+
+  if (data.forecast) {
+    var chartOptions = {
+      grid: { top: 8, right: 8, bottom: 24, left: 36 },
+      xAxis: {
+        type: 'category',
+        data: ['06:00', '12:00', '16:00', '20:00']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          data: [data.forecast.forecastday[0].hour[6].temp_c, data.forecast.forecastday[0].hour[12].temp_c, data.forecast.forecastday[0].hour[16].temp_c, data.forecast.forecastday[0].hour[20].temp_c],
+          type: 'line',
+          smooth: true,
+        }
+      ],
+      tooltip: {
+        trigger: 'axis'
+      },
+    };
   }
 
 
@@ -146,7 +175,27 @@ const Landing = () => {
                   <div className={s.stats}>
                     <span title='Condition'><TiWeatherCloudy size={'20px'}></TiWeatherCloudy>{data.current.condition.text}</span>
                     <span title='Wind Speed'><WiCloudyGusts size={'25px'}></WiCloudyGusts>{data.current.wind_kph}km/h</span>
-                    <span title='Pressure'><TbGauge size={'20px'}></TbGauge>{data.current.pressure_in}</span>
+                    <span title='Chance of rain'><BsCloudRain size={'20px'}></BsCloudRain>{data.forecast.forecastday[0].day.daily_chance_of_rain}%</span>
+                  </div>
+                </div>
+                <div className={s.chart}>
+                  <ReactECharts option={chartOptions} />
+                </div>
+                <h2>Forecast</h2>
+                <div className={`${s.forecast}`}>
+                  <div className={s.day}>
+                    <span className={s.secondary}>{dayOfTheWeek(1)}</span>
+                    <span className={s.primary}>{data.forecast.forecastday[1].day.avgtemp_c}<TbTemperatureCelsius></TbTemperatureCelsius></span>
+                    <span title='Condition' className={s.secondary}><TiWeatherCloudy size={'20px'}></TiWeatherCloudy>{data.forecast.forecastday[1].day.condition.text}</span>
+                    <span title='Wind Speed' className={s.secondary}><WiCloudyGusts size={'25px'}></WiCloudyGusts>{data.forecast.forecastday[1].day.maxwind_kph}km/h</span>
+                    <span title='Chance of rain' className={s.secondary}><BsCloudRain size={'20px'}></BsCloudRain>{data.forecast.forecastday[1].day.daily_chance_of_rain}%</span>
+                  </div>
+                  <div className={s.day}>
+                    <span className={s.secondary}>{dayOfTheWeek(2)}</span>
+                    <span className={s.primary}>{data.forecast.forecastday[2].day.avgtemp_c}<TbTemperatureCelsius></TbTemperatureCelsius></span>
+                    <span title='Condition' className={s.secondary}>{data.forecast.forecastday[2].day.condition.text}<TiWeatherCloudy size={'20px'}></TiWeatherCloudy></span>
+                    <span title='Wind Speed' className={s.secondary}>{data.forecast.forecastday[2].day.maxwind_kph}km/h<WiCloudyGusts size={'25px'}></WiCloudyGusts></span>
+                    <span title='Chance of rain' className={s.secondary}>{data.forecast.forecastday[2].day.daily_chance_of_rain}%<BsCloudRain size={'20px'}></BsCloudRain></span>
                   </div>
                 </div>
               </div>

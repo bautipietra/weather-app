@@ -46,8 +46,8 @@ const Nav = ({ setData }) => {
   return (
     <motion.nav
       transition={{ duration: 1, delay: 1 }}
-      initial={{ opacity: 0, y: -100, scale: 0.8 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0 }}>
       <div className={s.searchBar}>
         <input type="search" placeholder='Search a city...' onKeyDown={(e) => searchHandler(e)} />
