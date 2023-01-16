@@ -80,6 +80,12 @@
             align-items: center;
             gap: 5px;
             font-size: var(--font-size-sm);
+
+            svg {
+              @include m.mq(768px) {
+                order: -1;
+              }
+            }
           }
 
           .primary {
