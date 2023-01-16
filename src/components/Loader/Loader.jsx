@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 const Loader = () => {
   return (
-    <motion.span className={s.loader}
+    <motion.span className={`${s.loader} invert`}
       transition={{ duration: 1, delay: 0 }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
