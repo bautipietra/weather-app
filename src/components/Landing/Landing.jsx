@@ -186,16 +186,16 @@ const Landing = () => {
                   <div className={s.day}>
                     <span className={s.secondary}>{dayOfTheWeek(1)}</span>
                     <span className={s.primary}>{data.forecast.forecastday[1].day.avgtemp_c}<TbTemperatureCelsius></TbTemperatureCelsius></span>
-                    <span title='Condition' className={s.secondary}><TiWeatherCloudy size={'20px'}></TiWeatherCloudy>{data.forecast.forecastday[1].day.condition.text}</span>
-                    <span title='Wind Speed' className={s.secondary}><WiCloudyGusts size={'25px'}></WiCloudyGusts>{data.forecast.forecastday[1].day.maxwind_kph}km/h</span>
-                    <span title='Chance of rain' className={s.secondary}><BsCloudRain size={'20px'}></BsCloudRain>{data.forecast.forecastday[1].day.daily_chance_of_rain}%</span>
+                    <span title='Condition' className={`${s.secondary} ${s.ask}`}><TiWeatherCloudy size={'20px'}></TiWeatherCloudy>{data.forecast.forecastday[1].day.condition.text}</span>
+                    <span title='Wind Speed' className={`${s.secondary} ${s.ask}`}><WiCloudyGusts size={'25px'}></WiCloudyGusts>{data.forecast.forecastday[1].day.maxwind_kph}km/h</span>
+                    <span title='Chance of rain' className={`${s.secondary} ${s.ask}`}><BsCloudRain size={'20px'}></BsCloudRain>{data.forecast.forecastday[1].day.daily_chance_of_rain}%</span>
                   </div>
                   <div className={s.day}>
                     <span className={s.secondary}>{dayOfTheWeek(2)}</span>
                     <span className={s.primary}>{data.forecast.forecastday[2].day.avgtemp_c}<TbTemperatureCelsius></TbTemperatureCelsius></span>
-                    <span title='Condition' className={s.secondary}>{data.forecast.forecastday[2].day.condition.text}<TiWeatherCloudy size={'20px'}></TiWeatherCloudy></span>
-                    <span title='Wind Speed' className={s.secondary}>{data.forecast.forecastday[2].day.maxwind_kph}km/h<WiCloudyGusts size={'25px'}></WiCloudyGusts></span>
-                    <span title='Chance of rain' className={s.secondary}>{data.forecast.forecastday[2].day.daily_chance_of_rain}%<BsCloudRain size={'20px'}></BsCloudRain></span>
+                    <span title='Condition' className={`${s.secondary} ${s.ask}`}>{data.forecast.forecastday[2].day.condition.text}<TiWeatherCloudy size={'20px'}></TiWeatherCloudy></span>
+                    <span title='Wind Speed' className={`${s.secondary} ${s.ask}`}>{data.forecast.forecastday[2].day.maxwind_kph}km/h<WiCloudyGusts size={'25px'}></WiCloudyGusts></span>
+                    <span title='Chance of rain' className={`${s.secondary} ${s.ask}`}>{data.forecast.forecastday[2].day.daily_chance_of_rain}%<BsCloudRain size={'20px'}></BsCloudRain></span>
                   </div>
                 </div>
               </div>
