@@ -4,32 +4,100 @@
   justify-content: center;
   min-height: calc(100vh - 100px);
 
+  .error {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--secondary-text);
+    text-align: center;
+
+    svg {
+      fill: var(--secondary-text);
+    }
+  }
+
   .weatherContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-flow: row wrap;
-    max-width: 1200px;
+    flex-flow: column;
+    max-width: 1000px;
     width: 90%;
     gap: 50px;
     margin: 50px auto;
 
-    .city {
-      background-color: var(--light);
-      border-radius: 20px;
-      padding: 5%;
-      flex: 1 1 0;
+    .mainCard {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      overflow: hidden;
+      color: #f5f5f5;
 
-      .mainCard {
-        img {
-          max-width: 300px;
+      .city {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+
+        .stats {
+          display: flex;
+          flex-flow: row;
+          align-items: center;
+          justify-content: center;
+          gap: 15px;
+
+          span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--secondary-text);
+            cursor: help;
+          }
+        }
+
+        .weather {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-flow: column;
+
+          .temperature {
+            font-weight: bold;
+            font-size: var(--font-size-xxxl);
+          }
+        }
+
+        .location {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-flow: row wrap;
+          font-weight: 500;
+
+          span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            &:nth-child(2) {
+              font-weight: normal;
+              color: var(--secondary-text);
+            }
+
+            svg {
+              fill: #f5f5f5;
+            }
+          }
         }
       }
+    }
 
-      h1 {
-        font-size: var(--font-size-md);
-      }
+    h1 {
+      font-size: var(--font-size-md);
     }
   }
-
 }

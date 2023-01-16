@@ -5,6 +5,11 @@ import { motion } from 'framer-motion'
 import weatherImage from '../../utils/weatherImage.jsx'
 import { useSearchParams, useLocation } from 'react-router-dom'
 import Nav from '../Nav/Nav'
+import { RiErrorWarningFill } from 'react-icons/ri'
+import { MdLocationOn } from 'react-icons/md'
+import { TbTemperatureCelsius, TbGauge } from 'react-icons/tb'
+import { WiCloudyGusts } from 'react-icons/wi'
+import { TiWeatherCloudy } from 'react-icons/ti'
 
 const Landing = () => {
 
@@ -18,7 +23,6 @@ const Landing = () => {
 
   const [searchParams] = useSearchParams()
   const search = searchParams.get('search')
-  if (search != searchParams.get('search')) setData(false)
 
   useEffect(() => {
     if (search) {
@@ -123,18 +127,26 @@ const Landing = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}>
+            <RiErrorWarningFill></RiErrorWarningFill>
             {data.error.message}</motion.span> :
             <motion.div className={s.weatherContainer}
               transition={{ duration: 1, delay: 1 }}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}>
-              <div className={s.city}>
-                <div className={s.mainCard}>
-                  <div>
-                    <span>{dayOfTheWeek()}</span>
-                    <span>{hourF()}</span>
-                    {weatherImage(data.current.condition.code, data.current.is_day)}
+              <div className={`${s.mainCard} before`}>
+                <div className={s.city}>
+                  <div className={s.location}>
+                    <span><MdLocationOn size={'25px'} className={'default'}></MdLocationOn> {data.location.name}</span>
+                    <span>, {dayOfTheWeek()} {hourF()}</span>
+                  </div>
+                  <div className={s.weather}>
+                    <span className={s.temperature}>{data.current.temp_c}<TbTemperatureCelsius></TbTemperatureCelsius></span>
+                  </div>
+                  <div className={s.stats}>
+                    <span title='Condition'><TiWeatherCloudy size={'20px'}></TiWeatherCloudy>{data.current.condition.text}</span>
+                    <span title='Wind Speed'><WiCloudyGusts size={'25px'}></WiCloudyGusts>{data.current.wind_kph}km/h</span>
+                    <span title='Pressure'><TbGauge size={'20px'}></TbGauge>{data.current.pressure_in}</span>
                   </div>
                 </div>
               </div>
