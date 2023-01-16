@@ -92,6 +92,12 @@
             font-size: var(--font-size-lg);
             gap: 0;
             align-items: baseline;
+
+            svg {
+              @include m.mq(768px) {
+                order: 1;
+              }
+            }
           }
 
           .secondary {
